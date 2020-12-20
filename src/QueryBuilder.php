@@ -66,7 +66,7 @@ class QueryBuilder implements QueryBuilderInterface
      * @param string      $name
      * @param string      $alias
      * @param string      $type
-     * @param null        $condition
+     * @param string|null $condition
      * @param string|null $indexBy
      *
      * @return $this
@@ -87,7 +87,7 @@ class QueryBuilder implements QueryBuilderInterface
      * @param string      $name
      * @param string      $alias
      * @param string      $type
-     * @param null        $condition
+     * @param string|null $condition
      * @param string|null $indexBy
      *
      * @return $this
@@ -153,7 +153,7 @@ class QueryBuilder implements QueryBuilderInterface
      * @param mixed $value
      * @param string|null $type
      *
-     * @return QueryBuilderInterface
+     * @return $this|QueryBuilderInterface
      */
     public function setParameter(string $name, $value, ?string $type = null): QueryBuilderInterface
     {
@@ -165,7 +165,7 @@ class QueryBuilder implements QueryBuilderInterface
     /**
      * @param QueryBuilderInterface $queryBuilder
      *
-     * @return QueryBuilderInterface
+     * @return $this|QueryBuilderInterface
      */
     public function mergeParameters(QueryBuilderInterface $queryBuilder): QueryBuilderInterface
     {
