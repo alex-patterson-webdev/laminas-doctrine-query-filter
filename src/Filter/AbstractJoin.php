@@ -7,8 +7,9 @@ namespace Arp\LaminasDoctrine\Query\Filter;
 use Arp\LaminasDoctrine\Query\Exception\InvalidArgumentException;
 use Arp\LaminasDoctrine\Query\Exception\QueryFilterException;
 use Arp\LaminasDoctrine\Query\Exception\QueryFilterManagerException;
-use Arp\LaminasDoctrine\Query\MetadataInterface;
+use Arp\LaminasDoctrine\Query\Metadata\MetadataInterface;
 use Arp\LaminasDoctrine\Query\QueryBuilderInterface;
+use Doctrine\ORM\Mapping\MappingException;
 use Doctrine\ORM\Query\Expr\Andx as DoctrineAndX;
 use Doctrine\ORM\Query\Expr\Base;
 use Doctrine\ORM\Query\Expr\Composite;
@@ -53,8 +54,9 @@ abstract class AbstractJoin extends AbstractFilter
     {
         $fieldName = $this->resolveFieldName($criteria);
 
-        $mapping = $metadata->getAssociationFiledMapping($fieldName);
-        if (empty($mapping['targetEntity'])) {
+        try {
+            $mapping = $metadata->getAssociationFiledMapping($fieldName);
+        } catch (MappingException $e) {
             throw new InvalidArgumentException(
                 sprintf(
                     'Failed to load association field mapping for field \'%s::%s\' in filter \'%s\'',
@@ -88,9 +90,9 @@ abstract class AbstractJoin extends AbstractFilter
             }
 
             $filter = [
-                'name' => AndX::class,
+                'name'       => AndX::class,
                 'conditions' => $conditions,
-                'where' => $criteria['filters']['where'] ?? null,
+                'where'      => $criteria['filters']['where'] ?? null,
             ];
 
             try {
