@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Arp\LaminasDoctrine\Factory\Query;
+namespace Arp\LaminasDoctrine\Query\Factory;
 
 use Arp\LaminasDoctrine\Query\Filter\FilterManager;
 use Arp\LaminasDoctrine\Query\QueryFilterManager;
@@ -13,7 +13,7 @@ use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 
 /**
  * @author  Alex Patterson <alex.patterson.webdev@gmail.com>
- * @package Arp\LaminasDoctrine\Factory\Query
+ * @package Arp\LaminasDoctrine\Query\Factory
  */
 final class QueryFilterManagerFactory extends AbstractFactory
 {
