@@ -10,7 +10,7 @@
   ],
   "require": {
     "php": ">=7.4 || >=8.0",
-    "alex-patterson-webdev/factory": "^1",
+    "alex-patterson-webdev/laminas-factory": "^2",
     "doctrine/orm": "^2.7"
   },
   "require-dev": {
@@ -26,18 +26,10 @@
       "ArpTest\\LaminasDoctrine\\Query\\": "test/unit/"
     }
   },
-  "repositories": [
-    {
-      "type": "composer",
-      "url": "http://dev.satis.local"
-    }
-  ],
   "scripts": {
     "test": "php vendor/bin/phpunit"
   },
   "config": {
-    "secure-http": false,
-    "preferred-install": "dist",
     "optimize-autoloader": true,
     "sort-packages": true
   }
