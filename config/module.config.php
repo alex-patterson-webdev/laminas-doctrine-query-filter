@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Arp\LaminasDoctrine\Query;
 
-use Arp\LaminasDoctrine\Factory\Query\Filter\FilterManagerFactory;
-use Arp\LaminasDoctrine\Factory\Query\Filter\QueryFilterFactory;
-use Arp\LaminasDoctrine\Factory\Query\QueryFilterManagerFactory;
+use Arp\LaminasDoctrine\Query\Factory\Filter\FilterManagerFactory;
+use Arp\LaminasDoctrine\Query\Factory\Filter\QueryFilterFactory;
+use Arp\LaminasDoctrine\Query\Factory\QueryFilterManagerFactory;
 use Arp\LaminasDoctrine\Query\Filter\AndX;
 use Arp\LaminasDoctrine\Query\Filter\FilterManager;
 use Arp\LaminasDoctrine\Query\Filter\InnerJoin;
