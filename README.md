@@ -6,10 +6,12 @@
 
 ## About
 
-A Doctrine ORM query builder library for Laminas Applications. Inspired by 
+A Doctrine ORM query builder library for Laminas Applications. 
+
+This project has been inspired by the [Laminas Doctrine QueryBuilder](https://github.com/laminas-api-tools/api-tools-doctrine-querybuilder) project
 
 ## Installation
 
 Installation via [composer](https://getcomposer.org).
 
-    require alex-patterson-webdev/laminas-doctrine-query-builder ^1
+    require alex-patterson-webdev/laminas-doctrine-query-builder dev-master
