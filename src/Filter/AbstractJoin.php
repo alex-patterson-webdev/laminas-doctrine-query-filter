@@ -22,9 +22,6 @@ use Doctrine\ORM\Query\Expr\Orx as DoctrineOrX;
  */
 abstract class AbstractJoin extends AbstractFilter
 {
-    public const JOIN_INNER = 'innerJoin';
-    public const JOIN_LEFT = 'leftJoin';
-
     /**
      * @param QueryBuilderInterface      $queryBuilder
      * @param string                     $fieldName
@@ -69,7 +66,13 @@ abstract class AbstractJoin extends AbstractFilter
             $condition = $conditions;
         } elseif (is_array($conditions) && !empty($conditions)) {
             $tempQueryBuilder = $queryBuilder->createQueryBuilder();
-            $this->filterJoinConditions($tempQueryBuilder, $mapping['targetEntity'], $alias, $conditions);
+
+            $this->filterJoinCriteria(
+                $tempQueryBuilder,
+                $mapping['targetEntity'],
+                ['filters' => $this->createJoinFilters($conditions, $alias, $criteria)]
+            );
+
             $condition = $this->mergeJoinConditions($queryBuilder, $tempQueryBuilder);
         }
 
@@ -82,32 +85,6 @@ abstract class AbstractJoin extends AbstractFilter
             $criteria['join_type'] ?? Join::WITH,
             $criteria['index_by'] ?? null
         );
-    }
-
-    /**
-     * @param array  $conditions
-     * @param string $alias
-     *
-     * @return array
-     */
-    private function createJoinFilters(array $conditions, string $alias): array
-    {
-        // Use the join alias as the default alias for conditions
-        foreach ($conditions as $index => $condition) {
-            if (is_array($condition) && empty($condition['alias'])) {
-                $conditions[$index]['alias'] = $alias;
-            }
-        }
-
-        return [
-            'filters' => [
-                [
-                    'name'       => AndX::class,
-                    'conditions' => $conditions,
-                    'where'      => $criteria['filters']['where'] ?? null,
-                ],
-            ],
-        ];
     }
 
     /**
@@ -137,23 +114,14 @@ abstract class AbstractJoin extends AbstractFilter
     /**
      * @param QueryBuilderInterface $qb
      * @param string                $targetEntity
-     * @param string                $alias
-     * @param array                 $conditions
+     * @param array                 $criteria
      *
      * @throws QueryFilterException
      */
-    private function filterJoinConditions(
-        QueryBuilderInterface $qb,
-        string $targetEntity,
-        string $alias,
-        array $conditions
-    ): void {
+    private function filterJoinCriteria(QueryBuilderInterface $qb, string $targetEntity, array $criteria): void
+    {
         try {
-            $this->queryFilterManager->filter(
-                $qb,
-                $targetEntity,
-                $this->createJoinFilters($conditions, $alias)
-            );
+            $this->queryFilterManager->filter($qb, $targetEntity, $criteria);
         } catch (QueryFilterManagerException $e) {
             throw new QueryFilterException(
                 sprintf(
@@ -166,6 +134,31 @@ abstract class AbstractJoin extends AbstractFilter
                 $e
             );
         }
+    }
+
+    /**
+     * @param array  $conditions
+     * @param string $alias
+     * @param array  $criteria
+     *
+     * @return array
+     */
+    private function createJoinFilters(array $conditions, string $alias, array $criteria): array
+    {
+        // Use the join alias as the default alias for conditions
+        foreach ($conditions as $index => $condition) {
+            if (is_array($condition) && empty($condition['alias'])) {
+                $conditions[$index]['alias'] = $alias;
+            }
+        }
+
+        return [
+            [
+                'name'       => AndX::class,
+                'conditions' => $conditions,
+                'where'      => $criteria['filters']['where'] ?? null,
+            ],
+        ];
     }
 
     /**
