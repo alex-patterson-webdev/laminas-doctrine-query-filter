@@ -55,6 +55,15 @@ interface QueryBuilderInterface
     public function setParameters(ArrayCollection $parameters): QueryBuilderInterface;
 
     /**
+     * @param string $name
+     * @param mixed $value
+     * @param string|null $type
+     *
+     * @return QueryBuilderInterface
+     */
+    public function setParameter(string $name, $value, ?string $type = null): QueryBuilderInterface;
+
+    /**
      * @param mixed ...$args
      *
      * @return QueryBuilderInterface
