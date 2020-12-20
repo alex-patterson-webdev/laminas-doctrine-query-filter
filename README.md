@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.com/alex-patterson-webdev/laminas-doctrine-query-builder.svg?branch=master)](https://travis-ci.com/alex-patterson-webdev/laminas-doctrine-query-builder)
-[![codecov](https://codecov.io/gh/alex-patterson-webdev/laminas-doctrine-query-builder/branch/master/graph/badge.svg)](https://codecov.io/gh/alex-patterson-webdev/laminas-doctrine-query-builder)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/alex-patterson-webdev/laminas-doctrine-query-builder/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/alex-patterson-webdev/laminas-doctrine-query-builder/?branch=master)
+[![Build Status](https://travis-ci.com/alex-patterson-webdev/laminas-doctrine-query-filter.svg?branch=master)](https://travis-ci.com/alex-patterson-webdev/laminas-doctrine-query-filter)
+[![codecov](https://codecov.io/gh/alex-patterson-webdev/laminas-doctrine-query-filter/branch/master/graph/badge.svg)](https://codecov.io/gh/alex-patterson-webdev/laminas-doctrine-query-filter)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/alex-patterson-webdev/laminas-doctrine-query-filter/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/alex-patterson-webdev/laminas-doctrine-query-filter/?branch=master)
 
 # Arp\LaminasDoctrineQueryBuilder
 
