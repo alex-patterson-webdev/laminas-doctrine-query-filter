@@ -53,19 +53,7 @@ abstract class AbstractJoin extends AbstractFilter
     public function filter(QueryBuilderInterface $queryBuilder, MetadataInterface $metadata, array $criteria): void
     {
         $fieldName = $this->resolveFieldName($criteria);
-
-        try {
-            $mapping = $metadata->getAssociationFiledMapping($fieldName);
-        } catch (MappingException $e) {
-            throw new InvalidArgumentException(
-                sprintf(
-                    'Failed to load association field mapping for field \'%s::%s\' in filter \'%s\'',
-                    $metadata->getName(),
-                    $fieldName,
-                    static::class
-                )
-            );
-        }
+        $mapping = $this->getAssociationMapping($metadata, $fieldName);
 
         $alias = $criteria['alias'] ?? null;
         if (null === $alias) {
@@ -79,50 +67,10 @@ abstract class AbstractJoin extends AbstractFilter
 
         if (is_object($conditions)) {
             $condition = $conditions;
-        } elseif (is_array($conditions)) {
-            $qb = $queryBuilder->createQueryBuilder();
-
-            // Use the join alias as the default alias for conditions
-            foreach ($conditions as $index => $condition) {
-                if (is_array($condition) && empty($condition['alias'])) {
-                    $conditions[$index]['alias'] = $alias;
-                }
-            }
-
-            $filter = [
-                'name'       => AndX::class,
-                'conditions' => $conditions,
-                'where'      => $criteria['filters']['where'] ?? null,
-            ];
-
-            try {
-                $this->queryFilterManager->filter($qb, $mapping['targetEntity'], ['filters' => [$filter]]);
-            } catch (QueryFilterManagerException $e) {
-                throw new QueryFilterException(
-                    sprintf(
-                        'Failed to apply query filter \'%s\' conditions for \'%s::%s\': %s',
-                        static::class,
-                        $metadata->getName(),
-                        $fieldName,
-                        $e->getMessage()
-                    ),
-                    $e->getCode(),
-                    $e
-                );
-            }
-
-            $parts = $qb->getQueryParts();
-            if (isset($parts['where'])) {
-                if ($parts['where'] instanceof DoctrineAndx) {
-                    $condition = $queryBuilder->expr()->andX();
-                } elseif ($parts['where'] instanceof DoctrineOrX) {
-                    $condition = $queryBuilder->expr()->orX();
-                }
-                if (isset($condition)) {
-                    $condition->addMultiple($parts['where']->getParts());
-                    $queryBuilder->mergeParameters($qb);
-                }
-            }
+        } elseif (is_array($conditions) && !empty($conditions)) {
+            $tempQueryBuilder = $queryBuilder->createQueryBuilder();
+            $this->filterJoinConditions($tempQueryBuilder, $mapping['targetEntity'], $alias, $conditions);
+            $condition = $this->mergeJoinConditions($queryBuilder, $tempQueryBuilder);
         }
 
         $parentAlias = $criteria['parent_alias'] ?? 'entity';
@@ -134,5 +82,117 @@ abstract class AbstractJoin extends AbstractFilter
             $criteria['join_type'] ?? Join::WITH,
             $criteria['index_by'] ?? null
         );
+    }
+
+    /**
+     * @param array  $conditions
+     * @param string $alias
+     *
+     * @return array
+     */
+    private function createJoinFilters(array $conditions, string $alias): array
+    {
+        // Use the join alias as the default alias for conditions
+        foreach ($conditions as $index => $condition) {
+            if (is_array($condition) && empty($condition['alias'])) {
+                $conditions[$index]['alias'] = $alias;
+            }
+        }
+
+        return [
+            'filters' => [
+                [
+                    'name'       => AndX::class,
+                    'conditions' => $conditions,
+                    'where'      => $criteria['filters']['where'] ?? null,
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @param MetadataInterface $metadata
+     * @param string            $fieldName
+     *
+     * @return array
+     *
+     * @throws InvalidArgumentException
+     */
+    private function getAssociationMapping(MetadataInterface $metadata, string $fieldName): array
+    {
+        try {
+            return $metadata->getAssociationFiledMapping($fieldName);
+        } catch (MappingException $e) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Failed to load association field mapping for field \'%s::%s\' in filter \'%s\'',
+                    $metadata->getName(),
+                    $fieldName,
+                    static::class
+                )
+            );
+        }
+    }
+
+    /**
+     * @param QueryBuilderInterface $qb
+     * @param string                $targetEntity
+     * @param string                $alias
+     * @param array                 $conditions
+     *
+     * @throws QueryFilterException
+     */
+    private function filterJoinConditions(
+        QueryBuilderInterface $qb,
+        string $targetEntity,
+        string $alias,
+        array $conditions
+    ): void {
+        try {
+            $this->queryFilterManager->filter(
+                $qb,
+                $targetEntity,
+                $this->createJoinFilters($conditions, $alias)
+            );
+        } catch (QueryFilterManagerException $e) {
+            throw new QueryFilterException(
+                sprintf(
+                    'Failed to apply query filter \'%s\' conditions for target entity \'%s\': %s',
+                    static::class,
+                    $targetEntity,
+                    $e->getMessage()
+                ),
+                $e->getCode(),
+                $e
+            );
+        }
+    }
+
+    /**
+     * @param QueryBuilderInterface $queryBuilder
+     * @param QueryBuilderInterface $qb
+     *
+     * @return DoctrineAndX|DoctrineOrX|null
+     */
+    private function mergeJoinConditions(QueryBuilderInterface $queryBuilder, QueryBuilderInterface $qb): ?Composite
+    {
+        $parts = $qb->getQueryParts();
+
+        if (!isset($parts['where'])) {
+            return null;
+        }
+
+        if ($parts['where'] instanceof DoctrineAndx) {
+            $condition = $queryBuilder->expr()->andX();
+        } elseif ($parts['where'] instanceof DoctrineOrX) {
+            $condition = $queryBuilder->expr()->orX();
+        } else {
+            return null;
+        }
+
+        $condition->addMultiple($parts['where']->getParts());
+        $queryBuilder->mergeParameters($qb);
+
+        return $condition;
     }
 }
