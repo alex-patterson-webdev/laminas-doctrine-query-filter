@@ -14,4 +14,4 @@ This project has been inspired by the [Laminas Doctrine QueryBuilder](https://gi
 
 Installation via [composer](https://getcomposer.org).
 
-    require alex-patterson-webdev/laminas-doctrine-query-filter dev-master
+    require alex-patterson-webdev/laminas-doctrine-query-filter ^0.2
