@@ -47,23 +47,7 @@ class QueryFilterManager
             return;
         }
 
-        if ($queryBuilder instanceof DoctrineQueryBuilder) {
-            $queryBuilder = $this->createQueryBuilderProxy($queryBuilder);
-        }
-
-        if (!$queryBuilder instanceof QueryBuilderInterface) {
-            throw new QueryFilterManagerException(
-                sprintf(
-                    'The \'queryBuilder\' argument must be an object of type \'%s\' or \'%s\'; '
-                    . '\'%s\' provided in \'%s\'',
-                    QueryBuilderInterface::class,
-                    DoctrineQueryBuilder::class,
-                    is_object($queryBuilder) ? get_class($queryBuilder) : gettype($queryBuilder),
-                    static::class
-                )
-            );
-        }
-
+        $queryBuilder = $this->getQueryBuilder($queryBuilder);
         $metadata = $this->createMetadataProxy($queryBuilder->getEntityManager(), $entityName);
 
         foreach ($criteria['filters'] as $data) {
@@ -81,6 +65,35 @@ class QueryFilterManager
                 );
             }
         }
+    }
+
+    /**
+     * @param QueryBuilderInterface|DoctrineQueryBuilder $queryBuilder
+     *
+     * @return QueryBuilderInterface
+     *
+     * @throws QueryFilterManagerException
+     */
+    private function getQueryBuilder($queryBuilder): QueryBuilderInterface
+    {
+        if ($queryBuilder instanceof DoctrineQueryBuilder) {
+            $queryBuilder = $this->createQueryBuilderProxy($queryBuilder);
+        }
+
+        if (!$queryBuilder instanceof QueryBuilderInterface) {
+            throw new QueryFilterManagerException(
+                sprintf(
+                    'The \'queryBuilder\' argument must be an object of type \'%s\' or \'%s\'; '
+                    . '\'%s\' provided in \'%s\'',
+                    QueryBuilderInterface::class,
+                    DoctrineQueryBuilder::class,
+                    is_object($queryBuilder) ? get_class($queryBuilder) : gettype($queryBuilder),
+                    static::class
+                )
+            );
+        }
+
+        return $queryBuilder;
     }
 
     /**
@@ -118,7 +131,7 @@ class QueryFilterManager
             /** @var FilterInterface $filter */
             return $this->filterManager->build(
                 $name,
-                array_replace_recursive($options, ['filter_manager' => $this])
+                array_replace_recursive($options, ['query_filter_manager' => $this])
             );
         } catch (\Throwable $e) {
             throw new QueryFilterException(
