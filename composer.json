@@ -1,0 +1,44 @@
+{
+  "name": "alex-patterson-webdev/laminas-doctrine-query-filter",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "authors": [
+    {
+      "name": "Alex Patterson",
+      "email": "alex.patterson.webdev@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.4 || >=8.0",
+    "alex-patterson-webdev/factory": "^1",
+    "doctrine/orm": "^2.7"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "Arp\\LaminasDoctrine\\Query\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "ArpTest\\LaminasDoctrine\\Query\\": "test/unit/"
+    }
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "http://dev.satis.local"
+    }
+  ],
+  "scripts": {
+    "test": "php vendor/bin/phpunit"
+  },
+  "config": {
+    "secure-http": false,
+    "preferred-install": "dist",
+    "optimize-autoloader": true,
+    "sort-packages": true
+  }
+}
