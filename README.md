@@ -2,11 +2,11 @@
 [![codecov](https://codecov.io/gh/alex-patterson-webdev/laminas-doctrine-query-filter/branch/master/graph/badge.svg)](https://codecov.io/gh/alex-patterson-webdev/laminas-doctrine-query-filter)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/alex-patterson-webdev/laminas-doctrine-query-filter/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/alex-patterson-webdev/laminas-doctrine-query-filter/?branch=master)
 
-# Arp\LaminasDoctrineQueryBuilder
+# Arp\LaminasDoctrineQueryFilter
 
 ## About
 
-A Doctrine ORM query builder library for Laminas Applications. 
+A Doctrine ORM query filter library for Laminas Applications. 
 
 This project has been inspired by the [Laminas Doctrine QueryBuilder](https://github.com/laminas-api-tools/api-tools-doctrine-querybuilder) project
 
@@ -14,4 +14,4 @@ This project has been inspired by the [Laminas Doctrine QueryBuilder](https://gi
 
 Installation via [composer](https://getcomposer.org).
 
-    require alex-patterson-webdev/laminas-doctrine-query-builder dev-master
+    require alex-patterson-webdev/laminas-doctrine-query-filter dev-master
