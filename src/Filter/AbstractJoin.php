@@ -90,9 +90,9 @@ abstract class AbstractJoin extends AbstractFilter
             }
 
             $filter = [
-                'name' => AndX::class,
+                'name'       => AndX::class,
                 'conditions' => $conditions,
-                'where' => $criteria['filters']['where'] ?? null,
+                'where'      => $criteria['filters']['where'] ?? null,
             ];
 
             try {
