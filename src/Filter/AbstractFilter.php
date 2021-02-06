@@ -48,7 +48,7 @@ abstract class AbstractFilter implements FilterInterface
             );
         }
 
-        if ($metadata->hasField($criteria[$key]) && !$metadata->hasAssociation($criteria[$key])) {
+        if (!$metadata->hasField($criteria[$key]) && !$metadata->hasAssociation($criteria[$key])) {
             throw new InvalidArgumentException(
                 sprintf(
                     'The field name \'%s\' is invalid for entity \'%s\'',
