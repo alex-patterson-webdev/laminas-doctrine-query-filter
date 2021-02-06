@@ -8,7 +8,6 @@ use Arp\LaminasDoctrine\Query\Constant\WhereType;
 use Arp\LaminasDoctrine\Query\Exception\InvalidArgumentException;
 use Arp\LaminasDoctrine\Query\Metadata\MetadataInterface;
 use Arp\LaminasDoctrine\Query\QueryBuilderInterface;
-use Doctrine\ORM\Query\Expr;
 
 /**
  * @author  Alex Patterson <alex.patterson.webdev@gmail.com>
@@ -28,12 +27,15 @@ final class Between extends AbstractFilter
         $fieldName = $this->resolveFieldName($metadata, $criteria);
 
         $queryAlias = $criteria['alias'] ?? 'entity';
-        $paramName = uniqid($queryAlias, false);
+
+        $fromParamName = uniqid($queryAlias, false);
+        $toParamName = uniqid($queryAlias, false);
 
         $expression = $queryBuilder->expr()->between(
-
+            $queryAlias . '.' . $fieldName,
+            ':' . $fromParamName,
+            ':' . $toParamName
         );
-
 
         if (!isset($criteria['where']) || WhereType::AND === $criteria['where']) {
             $queryBuilder->andWhere($expression);
@@ -41,10 +43,14 @@ final class Between extends AbstractFilter
             $queryBuilder->orWhere($expression);
         }
 
-        // Some comparisons will not require a value to be provided
-        if (array_key_exists('value', $criteria)) {
-            $value = $this->formatValue($metadata, $fieldName, $criteria['value'], $criteria['format'] ?? null);
-            $queryBuilder->setParameter($paramName, $value);
-        }
+        $queryBuilder->setParameter(
+            $fromParamName,
+            $this->formatValue($metadata, $fieldName, $criteria['from'], $criteria['format'] ?? null)
+        );
+
+        $queryBuilder->setParameter(
+            $toParamName,
+            $this->formatValue($metadata, $fieldName, $criteria['to'], $criteria['format'] ?? null)
+        );
     }
 }

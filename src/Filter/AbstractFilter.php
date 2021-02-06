@@ -33,14 +33,32 @@ abstract class AbstractFilter implements FilterInterface
      * @param string            $key
      *
      * @return string
+     *
+     * @throws InvalidArgumentException
      */
-    protected function resolveFieldName(MetadataInterface $metadata, array $criteria, string $key): string
+    protected function resolveFieldName(MetadataInterface $metadata, array $criteria, string $key = 'field'): string
     {
         if (empty($criteria[$key])) {
             throw new InvalidArgumentException(
-                sprintf('The required \'%s\' is missing', $key)
+                sprintf(
+                    'The required \'%s\' criteria value is missing for filter \'%s\'',
+                    $key,
+                    static::class
+                )
             );
         }
+
+        if ($metadata->hasField($criteria[$key]) && !$metadata->hasAssociation($criteria[$key])) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    'The field name \'%s\' is invalid for entity \'%s\'',
+                    $criteria[$key],
+                    $metadata->getName()
+                )
+            );
+        }
+
+        return $criteria[$key];
     }
 
     /**

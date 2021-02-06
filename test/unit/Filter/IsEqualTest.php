@@ -69,7 +69,10 @@ final class IsEqualTest extends TestCase
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            sprintf('The required \'field\' criteria value is missing for filter \'%s\'', IsEqual::class)
+            sprintf(
+                'The required \'field\' criteria value is missing for filter \'%s\'',
+                IsEqual::class
+            )
         );
 
         $filter->filter($this->queryBuilder, $this->metadata, $criteria);
