@@ -14,25 +14,8 @@ use Doctrine\ORM\Query\Expr;
  * @author  Alex Patterson <alex.patterson.webdev@gmail.com>
  * @package Arp\LaminasDoctrine\Query\Filter
  */
-abstract class AbstractExpression extends AbstractFilter
+final class Between extends AbstractFilter
 {
-    /**
-     * Each extending class must return the expression it requires
-     *
-     * @param Expr   $expr
-     * @param string $fieldName
-     * @param string $parameterName
-     * @param string $alias
-     *
-     * @return string
-     */
-    abstract protected function createExpression(
-        Expr $expr,
-        string $fieldName,
-        string $parameterName,
-        string $alias
-    ): string;
-
     /**
      * @param QueryBuilderInterface $queryBuilder
      * @param MetadataInterface     $metadata
@@ -47,7 +30,11 @@ abstract class AbstractExpression extends AbstractFilter
         $queryAlias = $criteria['alias'] ?? 'entity';
         $paramName = uniqid($queryAlias, false);
 
-        $expression = $this->createExpression($queryBuilder->expr(), $fieldName, $paramName, $queryAlias);
+        $expression = $queryBuilder->expr()->between(
+
+        );
+
+
         if (!isset($criteria['where']) || WhereType::AND === $criteria['where']) {
             $queryBuilder->andWhere($expression);
         } else {

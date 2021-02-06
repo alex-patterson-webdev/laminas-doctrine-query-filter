@@ -33,26 +33,13 @@ abstract class AbstractComposite extends AbstractFilter
      *
      * @throws QueryFilterException
      */
-    public function filter(
-        QueryBuilderInterface $queryBuilder,
-        MetadataInterface $metadata,
-        array $criteria
-    ): void {
+    public function filter(QueryBuilderInterface $queryBuilder, MetadataInterface $metadata, array $criteria): void
+    {
         if (empty($criteria['conditions'])) {
             return;
         }
-
         $qb = $queryBuilder->createQueryBuilder();
-
-        try {
-            $this->queryFilterManager->filter($qb, $metadata->getName(), ['filters' => $criteria['conditions']]);
-        } catch (QueryFilterManagerException $e) {
-            throw new QueryFilterException(
-                sprintf('Failed to construct query filter \'%s\' conditions: %s', static::class, $e->getMessage()),
-                $e->getCode(),
-                $e
-            );
-        }
+        $this->applyConditions($qb, $metadata, $criteria['conditions']);
 
         $parts = $qb->getQueryParts();
         if (
@@ -72,5 +59,25 @@ abstract class AbstractComposite extends AbstractFilter
         }
 
         $queryBuilder->mergeParameters($qb);
+    }
+
+    /**
+     * @param QueryBuilderInterface $qb
+     * @param MetadataInterface     $metadata
+     * @param                       $conditions
+     *
+     * @throws QueryFilterException
+     */
+    private function applyConditions(QueryBuilderInterface $qb, MetadataInterface $metadata, $conditions): void
+    {
+        try {
+            $this->queryFilterManager->filter($qb, $metadata->getName(), ['filters' => $conditions]);
+        } catch (QueryFilterManagerException $e) {
+            throw new QueryFilterException(
+                sprintf('Failed to construct query filter \'%s\' conditions: %s', static::class, $e->getMessage()),
+                $e->getCode(),
+                $e
+            );
+        }
     }
 }

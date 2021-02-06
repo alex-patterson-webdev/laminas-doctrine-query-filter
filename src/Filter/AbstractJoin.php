@@ -49,7 +49,7 @@ abstract class AbstractJoin extends AbstractFilter
      */
     public function filter(QueryBuilderInterface $queryBuilder, MetadataInterface $metadata, array $criteria): void
     {
-        $fieldName = $this->resolveFieldName($criteria);
+        $fieldName = $this->resolveFieldName(, , $criteria);
         $mapping = $this->getAssociationMapping($metadata, $fieldName);
 
         $alias = $criteria['alias'] ?? null;
@@ -62,8 +62,10 @@ abstract class AbstractJoin extends AbstractFilter
         $conditions = $criteria['conditions'] ?? [];
         $condition = null;
 
-        if (is_object($conditions)) {
+        if (is_string($conditions)) {
             $condition = $conditions;
+        } elseif (is_object($condition)) {
+            $condition = (string)$conditions;
         } elseif (is_array($conditions) && !empty($conditions)) {
             $tempQueryBuilder = $queryBuilder->createQueryBuilder();
 

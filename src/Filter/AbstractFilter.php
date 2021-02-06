@@ -28,21 +28,41 @@ abstract class AbstractFilter implements FilterInterface
     }
 
     /**
-     * @param array $criteria
+     * @param MetadataInterface $metadata
+     * @param array             $criteria
+     * @param string            $key
      *
      * @return string
+     */
+    protected function resolveFieldName(MetadataInterface $metadata, array $criteria, string $key): string
+    {
+        if (empty($criteria[$key])) {
+            throw new InvalidArgumentException(
+                sprintf('The required \'%s\' is missing', $key)
+            );
+        }
+    }
+
+    /**
+     * @param MetadataInterface $metadata
+     * @param string            $fieldName
+     * @param string            $entityName
      *
      * @throws InvalidArgumentException
      */
-    protected function resolveFieldName(array $criteria): string
+    protected function validateFieldName(MetadataInterface $metadata, string $fieldName, string $entityName): void
     {
-        $field = $criteria['field'] ?? null;
-        if (null === $field) {
+        if (!$metadata->hasField($fieldName) && !$metadata->hasAssociation($fieldName)) {
             throw new InvalidArgumentException(
-                sprintf('The required \'field\' criteria value is missing for filter \'%s\'', static::class)
+                sprintf(
+                    'Unable to apply query filter \'%s\': '
+                    . 'The entity class \'%s\' has no field or association named \'%s\'',
+                    static::class,
+                    $entityName,
+                    $fieldName
+                )
             );
         }
-        return $field;
     }
 
     /**
@@ -74,6 +94,8 @@ abstract class AbstractFilter implements FilterInterface
      * @param string|null       $format
      *
      * @return mixed
+     *
+     * @noinspection PhpUnusedParameterInspection
      */
     protected function formatValue(MetadataInterface $metadata, string $fieldName, $value, ?string $format = null)
     {

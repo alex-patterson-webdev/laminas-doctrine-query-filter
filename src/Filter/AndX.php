@@ -11,7 +11,7 @@ use Doctrine\ORM\Query\Expr\Composite;
  * @author  Alex Patterson <alex.patterson.webdev@gmail.com>
  * @package Arp\LaminasDoctrine\Query\Filter
  */
-class AndX extends AbstractComposite
+final class AndX extends AbstractComposite
 {
     /**
      * @param QueryBuilderInterface $queryBuilder
