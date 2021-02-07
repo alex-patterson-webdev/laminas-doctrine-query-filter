@@ -68,6 +68,33 @@ class QueryFilterManager
     }
 
     /**
+     * Create a new filter matching $name with the provided $options
+     *
+     * @param string $name
+     * @param array  $options
+     *
+     * @return FilterInterface
+     *
+     * @throws QueryFilterException
+     */
+    public function createFilter(string $name, array $options = []): FilterInterface
+    {
+        try {
+            /** @var FilterInterface $filter */
+            return $this->filterManager->build(
+                $name,
+                array_replace_recursive($options, ['query_filter_manager' => $this])
+            );
+        } catch (\Throwable $e) {
+            throw new QueryFilterException(
+                sprintf('Failed to build query filter \'%s\': %s', $name, $e->getMessage()),
+                $e->getCode(),
+                $e
+            );
+        }
+    }
+
+    /**
      * @param QueryBuilderInterface|DoctrineQueryBuilder $queryBuilder
      *
      * @return QueryBuilderInterface
@@ -115,31 +142,6 @@ class QueryFilterManager
 
         $filter = $this->createFilter($filterName, $data['options'] ?? []);
         $filter->filter($queryBuilder, $metadata, $data);
-    }
-
-    /**
-     * @param string $name
-     * @param array  $options
-     *
-     * @return FilterInterface
-     *
-     * @throws QueryFilterException
-     */
-    private function createFilter(string $name, array $options = []): FilterInterface
-    {
-        try {
-            /** @var FilterInterface $filter */
-            return $this->filterManager->build(
-                $name,
-                array_replace_recursive($options, ['query_filter_manager' => $this])
-            );
-        } catch (\Throwable $e) {
-            throw new QueryFilterException(
-                sprintf('Failed to build query filter \'%s\': %s', $name, $e->getMessage()),
-                $e->getCode(),
-                $e
-            );
-        }
     }
 
     /**
