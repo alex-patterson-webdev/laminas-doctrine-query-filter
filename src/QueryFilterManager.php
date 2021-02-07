@@ -51,19 +51,7 @@ class QueryFilterManager
         $metadata = $this->createMetadataProxy($queryBuilder->getEntityManager(), $entityName);
 
         foreach ($criteria['filters'] as $data) {
-            try {
-                $this->applyFilter($queryBuilder, $metadata, $data);
-            } catch (QueryFilterException $e) {
-                throw new QueryFilterManagerException(
-                    sprintf(
-                        'An error occurred while attempting to apply the query filters for entity \'%s\': %s',
-                        $entityName,
-                        $e->getMessage()
-                    ),
-                    $e->getCode(),
-                    $e
-                );
-            }
+            $this->applyFilter($queryBuilder, $metadata, $data);
         }
     }
 
@@ -75,7 +63,7 @@ class QueryFilterManager
      *
      * @return FilterInterface
      *
-     * @throws QueryFilterException
+     * @throws QueryFilterManagerException
      */
     public function createFilter(string $name, array $options = []): FilterInterface
     {
@@ -86,7 +74,7 @@ class QueryFilterManager
                 array_replace_recursive($options, ['query_filter_manager' => $this])
             );
         } catch (\Throwable $e) {
-            throw new QueryFilterException(
+            throw new QueryFilterManagerException(
                 sprintf('Failed to build query filter \'%s\': %s', $name, $e->getMessage()),
                 $e->getCode(),
                 $e
@@ -128,20 +116,29 @@ class QueryFilterManager
      * @param MetadataInterface     $metadata
      * @param array                 $data
      *
-     * @throws QueryFilterException
+     * @throws QueryFilterManagerException
      */
     private function applyFilter(QueryBuilderInterface $queryBuilder, MetadataInterface $metadata, array $data): void
     {
         $filterName = $data['name'] ?? null;
 
         if (empty($filterName)) {
-            throw new QueryFilterException(
+            throw new QueryFilterManagerException(
                 sprintf('The required \'name\' query filter configuration option is missing in \'%s\'', __METHOD__)
             );
         }
 
         $filter = $this->createFilter($filterName, $data['options'] ?? []);
-        $filter->filter($queryBuilder, $metadata, $data);
+
+        try {
+            $filter->filter($queryBuilder, $metadata, $data);
+        } catch (QueryFilterException $e) {
+            throw new QueryFilterManagerException(
+                sprintf('Failed to apply query filter for entity \'%s\': %s', $metadata->getName(), $e->getMessage()),
+                $e->getCode(),
+                $e
+            );
+        }
     }
 
     /**
