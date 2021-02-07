@@ -4,28 +4,28 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1d7703b27d3b2aec03d33c74505e9f6f",
+    "content-hash": "2da0a069269b292a9ad40d2144214247",
     "packages": [
         {
             "name": "alex-patterson-webdev/laminas-factory",
-            "version": "2.0.0",
+            "version": "dev-feature/3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alex-patterson-webdev/laminas-factory.git",
-                "reference": "895d0cf8c63b34d3317e5e44f6476a54b47a00f1"
+                "reference": "2c65ee53952ebdd3e9e1f63863d0302b6bd895aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alex-patterson-webdev/laminas-factory/zipball/895d0cf8c63b34d3317e5e44f6476a54b47a00f1",
-                "reference": "895d0cf8c63b34d3317e5e44f6476a54b47a00f1",
+                "url": "https://api.github.com/repos/alex-patterson-webdev/laminas-factory/zipball/2c65ee53952ebdd3e9e1f63863d0302b6bd895aa",
+                "reference": "2c65ee53952ebdd3e9e1f63863d0302b6bd895aa",
                 "shasum": ""
             },
             "require": {
                 "laminas/laminas-servicemanager": "^3.4",
-                "php": ">=7.4"
+                "php": ">=7.4 || >=8.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^9.4"
+                "phpunit/phpunit": "^9.5"
             },
             "type": "library",
             "autoload": {
@@ -34,11 +34,17 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Alex Patterson",
+                    "email": "alex.patterson.webdev@gmail.com"
+                }
+            ],
             "support": {
                 "issues": "https://github.com/alex-patterson-webdev/laminas-factory/issues",
-                "source": "https://github.com/alex-patterson-webdev/laminas-factory/tree/2.0.0"
+                "source": "https://github.com/alex-patterson-webdev/laminas-factory/tree/feature/3.0.0"
             },
-            "time": "2020-11-15T14:02:04+00:00"
+            "time": "2021-02-07T12:57:09+00:00"
         },
         {
             "name": "composer/package-versions-deprecated",
@@ -4053,7 +4059,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "alex-patterson-webdev/laminas-factory": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

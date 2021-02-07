@@ -10,7 +10,7 @@
   ],
   "require": {
     "php": ">=7.4 || >=8.0",
-    "alex-patterson-webdev/laminas-factory": "^2",
+    "alex-patterson-webdev/laminas-factory": "dev-feature/3.0.0",
     "doctrine/orm": "^2.7"
   },
   "require-dev": {
