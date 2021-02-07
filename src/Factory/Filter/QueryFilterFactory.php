@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Arp\LaminasDoctrine\Query\Factory\Filter;
 
-use Arp\LaminasDoctrine\Query\Filter\FilterInterface;
-use Arp\LaminasDoctrine\Query\QueryFilterManager;
+use Arp\DoctrineQueryFilter\Filter\FilterInterface;
+use Arp\DoctrineQueryFilter\QueryFilterManager;
 use Arp\LaminasFactory\AbstractFactory;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Exception\ServiceNotCreatedException;

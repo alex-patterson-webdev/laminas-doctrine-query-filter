@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Arp\LaminasDoctrine\Query\Factory;
 
+use Arp\DoctrineQueryFilter\Filter\FilterManagerInterface;
+use Arp\DoctrineQueryFilter\QueryFilterManager;
 use Arp\LaminasDoctrine\Query\Filter\FilterManager;
-use Arp\LaminasDoctrine\Query\QueryFilterManager;
 use Arp\LaminasFactory\AbstractFactory;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
@@ -31,7 +32,7 @@ final class QueryFilterManagerFactory extends AbstractFactory
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null): QueryFilterManager
     {
-        /** @var FilterManager $filterManager */
+        /** @var FilterManagerInterface $filterManager */
         $filterManager = $this->getService($container, FilterManager::class, $requestedName);
 
         return new QueryFilterManager($filterManager);

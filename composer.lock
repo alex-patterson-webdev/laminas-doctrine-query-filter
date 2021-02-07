@@ -4,8 +4,51 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2da0a069269b292a9ad40d2144214247",
+    "content-hash": "576c19ce996312dd60f67101bc6a41db",
     "packages": [
+        {
+            "name": "alex-patterson-webdev/doctrine-query-filter",
+            "version": "dev-feature/0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alex-patterson-webdev/doctrine-query-filter.git",
+                "reference": "676de8a3b4ebed55bb75c9cf8e1fd585ca481463"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alex-patterson-webdev/doctrine-query-filter/zipball/676de8a3b4ebed55bb75c9cf8e1fd585ca481463",
+                "reference": "676de8a3b4ebed55bb75c9cf8e1fd585ca481463",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/orm": "^2.8",
+                "php": ">=7.4 || >=8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Arp\\DoctrineQueryFilter\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alex Patterson",
+                    "email": "alex.patterson.webdev@gmail.com"
+                }
+            ],
+            "support": {
+                "issues": "https://github.com/alex-patterson-webdev/doctrine-query-filter/issues",
+                "source": "https://github.com/alex-patterson-webdev/doctrine-query-filter/tree/feature/0.1.0"
+            },
+            "time": "2021-02-07T19:24:18+00:00"
+        },
         {
             "name": "alex-patterson-webdev/laminas-factory",
             "version": "dev-feature/3.0.0",
@@ -4060,6 +4103,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "alex-patterson-webdev/doctrine-query-filter": 20,
         "alex-patterson-webdev/laminas-factory": 20
     },
     "prefer-stable": true,

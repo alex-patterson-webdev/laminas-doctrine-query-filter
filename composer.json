@@ -2,6 +2,7 @@
   "name": "alex-patterson-webdev/laminas-doctrine-query-filter",
   "minimum-stability": "dev",
   "prefer-stable": true,
+  "license": "MIT",
   "authors": [
     {
       "name": "Alex Patterson",
@@ -10,8 +11,8 @@
   ],
   "require": {
     "php": ">=7.4 || >=8.0",
-    "alex-patterson-webdev/laminas-factory": "dev-feature/3.0.0",
-    "doctrine/orm": "^2.7"
+    "alex-patterson-webdev/doctrine-query-filter" : "dev-feature/0.1.0",
+    "alex-patterson-webdev/laminas-factory": "dev-feature/3.0.0"
   },
   "require-dev": {
     "phpunit/phpunit": "^9.5"
