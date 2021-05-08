@@ -22,15 +22,20 @@ use Arp\DoctrineQueryFilter\Filter\IsNotNull;
 use Arp\DoctrineQueryFilter\Filter\IsNull;
 use Arp\DoctrineQueryFilter\Filter\LeftJoin;
 use Arp\DoctrineQueryFilter\Filter\OrX;
+use Arp\DoctrineQueryFilter\Sort\Field;
 use Arp\DoctrineQueryFilter\Sort\SortFactory;
 use Arp\LaminasDoctrineQueryFilter\Factory\Filter\FilterManagerFactory;
 use Arp\LaminasDoctrineQueryFilter\Factory\Filter\QueryFilterFactory;
-use Arp\LaminasDoctrineQueryFilter\Factory\Sort\SortFactoryFactory;
+use Arp\LaminasDoctrineQueryFilter\Factory\Sort\SortManagerFactory;
 use Arp\LaminasDoctrineQueryFilter\Filter\FilterManager;
+use Arp\LaminasDoctrineQueryFilter\Sort\SortManager;
 
 return [
     'arp' => [
         'query_filters' => [
+
+        ],
+        'sort_filters' => [
 
         ],
     ],
@@ -38,10 +43,11 @@ return [
     'service_manager' => [
         'aliases' => [
             'FilterFactory' => FilterManager::class,
+            'SortFactory' => SortManager::class,
         ],
         'factories' => [
             FilterManager::class => FilterManagerFactory::class,
-            SortFactory::class => SortFactoryFactory::class,
+            SortManager::class => SortManagerFactory::class,
         ],
     ],
 
@@ -86,5 +92,14 @@ return [
             LeftJoin::class             => QueryFilterFactory::class,
             OrX::class                  => QueryFilterFactory::class,
         ],
+    ],
+
+    'sort_filter_manager' => [
+        'aliases' => [
+            'field' => Field::class,
+        ],
+        'factories' => [
+            Field::class => SortFactory::class,
+        ]
     ],
 ];
