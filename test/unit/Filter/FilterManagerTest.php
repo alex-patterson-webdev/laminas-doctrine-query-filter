@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace ArpTest\LaminasDoctrine\Query\Filter;
 
-use Arp\DoctrineQueryFilter\Filter\FilterManagerInterface;
-use Arp\LaminasDoctrine\Query\Filter\FilterManager;
+use Arp\DoctrineQueryFilter\Filter\FilterFactoryInterface;
+use Arp\LaminasDoctrineQueryFilter\Filter\FilterManager;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 
 /**
- * @covers  \Arp\LaminasDoctrine\Query\Filter\FilterManager
+ * @covers  \Arp\LaminasDoctrineQueryFilter\Filter\FilterManager
  *
  * @author  Alex Patterson <alex.patterson.webdev@gmail.com>
  * @package ArpTest\LaminasDoctrine\Query\Filter
@@ -19,7 +19,7 @@ use Psr\Container\ContainerInterface;
 final class FilterManagerTest extends TestCase
 {
     /**
-     * @var ContainerInterface|MockObject
+     * @var ContainerInterface&MockObject
      */
     private $container;
 
@@ -32,12 +32,12 @@ final class FilterManagerTest extends TestCase
     }
 
     /**
-     * Assert that the FilterManager implements the FilterManagerInterface
+     * Assert that the FilterManager implements the FilterFactoryInterface
      */
-    public function testInstanceOfFilterManagerInterface(): void
+    public function testInstanceOfFilterFactoryInterface(): void
     {
         $manager = new FilterManager($this->container);
 
-        $this->assertInstanceOf(FilterManagerInterface::class, $manager);
+        $this->assertInstanceOf(FilterFactoryInterface::class, $manager);
     }
 }

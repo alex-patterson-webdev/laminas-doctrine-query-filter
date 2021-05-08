@@ -2,35 +2,36 @@
 
 declare(strict_types=1);
 
-namespace Arp\LaminasDoctrine\Query\Factory\Filter;
+namespace Arp\LaminasDoctrineQueryFilter\Factory\Filter;
 
 use Arp\DoctrineQueryFilter\Filter\FilterInterface;
 use Arp\DoctrineQueryFilter\QueryFilterManager;
 use Arp\LaminasFactory\AbstractFactory;
-use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
+use Psr\Container\ContainerInterface;
 
 /**
  * @author  Alex Patterson <alex.patterson.webdev@gmail.com>
- * @package Arp\LaminasDoctrine\Query\Factory\Filter
+ * @package Arp\LaminasDoctrineQueryFilter\Factory\Filter
  */
 final class QueryFilterFactory extends AbstractFactory
 {
     /**
-     * @noinspection PhpMissingParamTypeInspection
-     *
      * @param ContainerInterface $container
      * @param string             $requestedName
-     * @param array|null         $options
+     * @param array<mixed>|null  $options
      *
      * @return FilterInterface
      *
      * @throws ServiceNotCreatedException
      * @throws ServiceNotFoundException
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null): FilterInterface
-    {
+    public function __invoke(
+        ContainerInterface $container,
+        string $requestedName,
+        array $options = null
+    ): FilterInterface {
         $options = $options ?? $this->getServiceOptions($container, $requestedName, 'query_filters');
 
         $className = $options['class_name'] ?? $requestedName;

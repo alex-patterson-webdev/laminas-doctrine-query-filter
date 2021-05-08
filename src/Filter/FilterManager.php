@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Arp\LaminasDoctrine\Query\Filter;
+namespace Arp\LaminasDoctrineQueryFilter\Filter;
 
+use Arp\DoctrineQueryFilter\Filter\FilterFactoryInterface;
 use Arp\DoctrineQueryFilter\Filter\FilterInterface;
-use Arp\DoctrineQueryFilter\Filter\FilterManagerInterface;
 use Arp\DoctrineQueryFilter\QueryFilterManagerInterface;
 use Laminas\ServiceManager\AbstractPluginManager;
 
 /**
  * @author  Alex Patterson <alex.patterson.webdev@gmail.com>
- * @package Arp\LaminasDoctrine\Query
+ * @package Arp\LaminasDoctrineQueryFilter
  */
-class FilterManager extends AbstractPluginManager implements FilterManagerInterface
+class FilterManager extends AbstractPluginManager implements FilterFactoryInterface
 {
     /**
      * @var string
@@ -23,7 +23,7 @@ class FilterManager extends AbstractPluginManager implements FilterManagerInterf
     /**
      * @param QueryFilterManagerInterface $manager
      * @param string                      $name
-     * @param array                       $options
+     * @param array<mixed>                $options
      *
      * @return FilterInterface
      */
