@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Arp\LaminasDoctrineQueryFilter\Factory\Filter;
 
 use Arp\DoctrineQueryFilter\Filter\FilterInterface;
+use Arp\DoctrineQueryFilter\Filter\Typecaster;
 use Arp\DoctrineQueryFilter\QueryFilterManager;
 use Arp\LaminasFactory\AbstractFactory;
 use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
@@ -36,11 +37,18 @@ final class QueryFilterFactory extends AbstractFactory
 
         $className = $options['class_name'] ?? $requestedName;
 
-        $queryFilterManager = $options['query_filter_manager'] ?? null;
-        if (null === $queryFilterManager) {
-            $queryFilterManager = $this->getService($container, QueryFilterManager::class, $requestedName);
-        }
+        $queryFilterManager = $this->getService(
+            $container,
+            $options['query_filter_manager'] ?? QueryFilterManager::class,
+            $requestedName
+        );
 
-        return new $className($queryFilterManager);
+        $typecaster = $this->getService(
+            $container,
+            $options['typecaster'] ?? Typecaster::class,
+            $requestedName
+        );
+
+        return new $className($queryFilterManager, $typecaster, $options['options'] ?? []);
     }
 }
