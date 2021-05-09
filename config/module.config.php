@@ -22,10 +22,12 @@ use Arp\DoctrineQueryFilter\Filter\IsNotNull;
 use Arp\DoctrineQueryFilter\Filter\IsNull;
 use Arp\DoctrineQueryFilter\Filter\LeftJoin;
 use Arp\DoctrineQueryFilter\Filter\OrX;
+use Arp\DoctrineQueryFilter\QueryFilterManager;
 use Arp\DoctrineQueryFilter\Sort\Field;
 use Arp\DoctrineQueryFilter\Sort\SortFactory;
 use Arp\LaminasDoctrineQueryFilter\Factory\Filter\FilterManagerFactory;
 use Arp\LaminasDoctrineQueryFilter\Factory\Filter\QueryFilterFactory;
+use Arp\LaminasDoctrineQueryFilter\Factory\QueryFilterManagerFactory;
 use Arp\LaminasDoctrineQueryFilter\Factory\Sort\SortManagerFactory;
 use Arp\LaminasDoctrineQueryFilter\Filter\FilterManager;
 use Arp\LaminasDoctrineQueryFilter\Sort\SortManager;
@@ -35,42 +37,44 @@ return [
         'query_filters' => [
 
         ],
-        'sort_filters' => [
+        'sort_filters'  => [
 
         ],
     ],
 
     'service_manager' => [
         'aliases' => [
-            'FilterFactory' => FilterManager::class,
-            'SortFactory' => SortManager::class,
+            'QueryFilterManager' => QueryFilterManager::class,
+            'FilterFactory'      => FilterManager::class,
+            'SortFactory'        => SortManager::class,
         ],
         'factories' => [
-            FilterManager::class => FilterManagerFactory::class,
-            SortManager::class => SortManagerFactory::class,
+            QueryFilterManager::class => QueryFilterManagerFactory::class,
+            FilterManager::class      => FilterManagerFactory::class,
+            SortManager::class        => SortManagerFactory::class,
         ],
     ],
 
     'query_filter_manager' => [
         'aliases'   => [
-            'andx'       => AndX::class,
-            'innerjoin'  => InnerJoin::class,
-            'between'    => IsBetween::class,
-            'eq'         => IsEqual::class,
-            'gt'         => IsGreaterThan::class,
-            'gte'        => IsGreaterThanOrEqual::class,
-            'in'         => IsIn::class,
-            'lt'         => IsLessThan::class,
-            'lte'        => IsLessThanOrEqual::class,
-            'like'       => IsLike::class,
-            'memberof'   => IsMemberOf::class,
-            'neq'        => IsNotEqual::class,
-            'notin'      => IsNotIn::class,
-            'notlike'    => IsNotLike::class,
-            'notnull'    => IsNotNull::class,
-            'null'       => IsNull::class,
-            'leftjoin'   => LeftJoin::class,
-            'orx'        => OrX::class,
+            'andx'      => AndX::class,
+            'innerjoin' => InnerJoin::class,
+            'between'   => IsBetween::class,
+            'eq'        => IsEqual::class,
+            'gt'        => IsGreaterThan::class,
+            'gte'       => IsGreaterThanOrEqual::class,
+            'in'        => IsIn::class,
+            'lt'        => IsLessThan::class,
+            'lte'       => IsLessThanOrEqual::class,
+            'like'      => IsLike::class,
+            'memberof'  => IsMemberOf::class,
+            'neq'       => IsNotEqual::class,
+            'notin'     => IsNotIn::class,
+            'notlike'   => IsNotLike::class,
+            'notnull'   => IsNotNull::class,
+            'null'      => IsNull::class,
+            'leftjoin'  => LeftJoin::class,
+            'orx'       => OrX::class,
         ],
         'factories' => [
             AndX::class                 => QueryFilterFactory::class,
@@ -95,11 +99,11 @@ return [
     ],
 
     'sort_filter_manager' => [
-        'aliases' => [
+        'aliases'   => [
             'field' => Field::class,
         ],
         'factories' => [
             Field::class => SortFactory::class,
-        ]
+        ],
     ],
 ];
