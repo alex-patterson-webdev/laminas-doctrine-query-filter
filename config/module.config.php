@@ -22,6 +22,7 @@ use Arp\DoctrineQueryFilter\Filter\IsNotNull;
 use Arp\DoctrineQueryFilter\Filter\IsNull;
 use Arp\DoctrineQueryFilter\Filter\LeftJoin;
 use Arp\DoctrineQueryFilter\Filter\OrX;
+use Arp\DoctrineQueryFilter\Filter\Typecaster;
 use Arp\DoctrineQueryFilter\QueryFilterManager;
 use Arp\DoctrineQueryFilter\Sort\Field;
 use Arp\DoctrineQueryFilter\Sort\SortFactory;
@@ -31,6 +32,7 @@ use Arp\LaminasDoctrineQueryFilter\Factory\QueryFilterManagerFactory;
 use Arp\LaminasDoctrineQueryFilter\Factory\Sort\SortManagerFactory;
 use Arp\LaminasDoctrineQueryFilter\Filter\FilterManager;
 use Arp\LaminasDoctrineQueryFilter\Sort\SortManager;
+use Laminas\ServiceManager\Factory\InvokableFactory;
 
 return [
     'arp' => [
@@ -52,6 +54,7 @@ return [
             QueryFilterManager::class => QueryFilterManagerFactory::class,
             FilterManager::class      => FilterManagerFactory::class,
             SortManager::class        => SortManagerFactory::class,
+            Typecaster::class         => InvokableFactory::class,
         ],
     ],
 
