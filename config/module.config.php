@@ -106,7 +106,7 @@ return [
             'field' => Field::class,
         ],
         'factories' => [
-            Field::class => SortFactory::class,
+            Field::class => \Arp\LaminasDoctrineQueryFilter\Factory\Sort\SortFactory::class,
         ],
     ],
 ];
