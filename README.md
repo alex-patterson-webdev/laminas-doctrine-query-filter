@@ -19,7 +19,6 @@ Add the module namespace to your module bootstrap configuration in `module.confi
     return [
         //...
         'DoctrineOrm',
-        'Arp\\LaminasDoctrineQueryFilter\\Module',
+        'Arp\\LaminasDoctrineQueryFilter',
     ];
 
-    
