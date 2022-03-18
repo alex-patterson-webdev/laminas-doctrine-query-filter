@@ -29,9 +29,6 @@ final class SortManager extends AbstractPluginManager implements SortFactoryInte
      */
     public function create(QueryFilterManagerInterface $manager, string $name, array $options = []): SortInterface
     {
-        return $this->build(
-            $name,
-            $options
-        );
+        return $this->build($name, $options);
     }
 }
