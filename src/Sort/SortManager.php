@@ -8,6 +8,7 @@ use Arp\DoctrineQueryFilter\QueryFilterManagerInterface;
 use Arp\DoctrineQueryFilter\Sort\SortFactoryInterface;
 use Arp\DoctrineQueryFilter\Sort\SortInterface;
 use Laminas\ServiceManager\AbstractPluginManager;
+use Psr\Container\ContainerExceptionInterface;
 
 /**
  * @author  Alex Patterson <alex.patterson.webdev@gmail.com>
@@ -16,7 +17,7 @@ use Laminas\ServiceManager\AbstractPluginManager;
 final class SortManager extends AbstractPluginManager implements SortFactoryInterface
 {
     /**
-     * @var string
+     * @var class-string<SortInterface>
      */
     protected $instanceOf = SortInterface::class;
 
@@ -26,6 +27,8 @@ final class SortManager extends AbstractPluginManager implements SortFactoryInte
      * @param array<mixed>                $options
      *
      * @return SortInterface
+     *
+     * @throws ContainerExceptionInterface
      */
     public function create(QueryFilterManagerInterface $manager, string $name, array $options = []): SortInterface
     {

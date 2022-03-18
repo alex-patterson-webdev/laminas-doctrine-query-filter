@@ -10,6 +10,7 @@ use Arp\DoctrineQueryFilter\QueryFilterManager;
 use Arp\LaminasFactory\AbstractFactory;
 use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
+use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 
 /**
@@ -27,6 +28,7 @@ final class QueryFilterFactory extends AbstractFactory
      *
      * @throws ServiceNotCreatedException
      * @throws ServiceNotFoundException
+     * @throws ContainerExceptionInterface
      */
     public function __invoke(
         ContainerInterface $container,
@@ -35,6 +37,7 @@ final class QueryFilterFactory extends AbstractFactory
     ): FilterInterface {
         $options = $options ?? $this->getServiceOptions($container, $requestedName, 'query_filters');
 
+        /** @var class-string<FilterInterface> $className */
         $className = $options['class_name'] ?? $requestedName;
 
         $queryFilterManager = $this->getService(

@@ -8,6 +8,7 @@ use Arp\DoctrineQueryFilter\Filter\FilterFactoryInterface;
 use Arp\DoctrineQueryFilter\Filter\FilterInterface;
 use Arp\DoctrineQueryFilter\QueryFilterManagerInterface;
 use Laminas\ServiceManager\AbstractPluginManager;
+use Psr\Container\ContainerExceptionInterface;
 
 /**
  * @author  Alex Patterson <alex.patterson.webdev@gmail.com>
@@ -16,7 +17,7 @@ use Laminas\ServiceManager\AbstractPluginManager;
 class FilterManager extends AbstractPluginManager implements FilterFactoryInterface
 {
     /**
-     * @var string
+     * @var class-string<FilterInterface>
      */
     protected $instanceOf = FilterInterface::class;
 
@@ -26,6 +27,8 @@ class FilterManager extends AbstractPluginManager implements FilterFactoryInterf
      * @param array<mixed>                $options
      *
      * @return FilterInterface
+     *
+     * @throws ContainerExceptionInterface
      */
     public function create(QueryFilterManagerInterface $manager, string $name, array $options = []): FilterInterface
     {

@@ -6,6 +6,7 @@ namespace Arp\LaminasDoctrineQueryFilter\Factory\Sort;
 
 use Arp\LaminasDoctrineQueryFilter\Sort\SortManager;
 use Arp\LaminasFactory\AbstractFactory;
+use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 
 /**
@@ -20,6 +21,8 @@ final class SortManagerFactory extends AbstractFactory
      * @param array<mixed>|null  $options
      *
      * @return SortManager
+     *
+     * @throws ContainerExceptionInterface
      */
     public function __invoke(
         ContainerInterface $container,

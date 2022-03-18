@@ -8,6 +8,7 @@ use Arp\LaminasDoctrineQueryFilter\Filter\FilterManager;
 use Arp\LaminasFactory\AbstractFactory;
 use Laminas\ServiceManager\Exception\InvalidArgumentException;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
+use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 
 /**
@@ -25,6 +26,7 @@ final class FilterManagerFactory extends AbstractFactory
      *
      * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
+     * @throws ContainerExceptionInterface
      */
     public function __invoke(ContainerInterface $container, string $requestedName, array $options = null): FilterManager
     {

@@ -15,9 +15,9 @@ use Psr\Container\ContainerInterface;
 final class SortFactory extends AbstractFactory
 {
     /**
-     * @param ContainerInterface $container
-     * @param string             $requestedName
-     * @param array<mixed>|null  $options
+     * @param ContainerInterface          $container
+     * @param class-string<SortInterface> $requestedName
+     * @param array<mixed>|null           $options
      *
      * @return SortInterface
      */

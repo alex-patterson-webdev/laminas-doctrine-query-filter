@@ -25,10 +25,10 @@ use Arp\DoctrineQueryFilter\Filter\OrX;
 use Arp\DoctrineQueryFilter\Filter\Typecaster;
 use Arp\DoctrineQueryFilter\QueryFilterManager;
 use Arp\DoctrineQueryFilter\Sort\Field;
-use Arp\DoctrineQueryFilter\Sort\SortFactory;
 use Arp\LaminasDoctrineQueryFilter\Factory\Filter\FilterManagerFactory;
 use Arp\LaminasDoctrineQueryFilter\Factory\Filter\QueryFilterFactory;
 use Arp\LaminasDoctrineQueryFilter\Factory\QueryFilterManagerFactory;
+use Arp\LaminasDoctrineQueryFilter\Factory\Sort\SortFactory;
 use Arp\LaminasDoctrineQueryFilter\Factory\Sort\SortManagerFactory;
 use Arp\LaminasDoctrineQueryFilter\Filter\FilterManager;
 use Arp\LaminasDoctrineQueryFilter\Sort\SortManager;
@@ -106,7 +106,7 @@ return [
             'field' => Field::class,
         ],
         'factories' => [
-            Field::class => \Arp\LaminasDoctrineQueryFilter\Factory\Sort\SortFactory::class,
+            Field::class => SortFactory::class,
         ],
     ],
 ];
