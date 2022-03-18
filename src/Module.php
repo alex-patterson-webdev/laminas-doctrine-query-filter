@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Arp\LaminasDoctrine\Query;
+namespace Arp\LaminasDoctrineQueryFilter;
 
 /**
  * @author  Alex Patterson <alex.patterson.webdev@gmail.com>
- * @package Arp\LaminasDoctrine\Query
+ * @package Arp\LaminasDoctrineQueryFilter
  */
 final class Module
 {
     /**
-     * @return array
+     * @return array<mixed>
      */
     public function getConfig(): array
     {
