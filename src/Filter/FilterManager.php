@@ -10,10 +10,6 @@ use Arp\DoctrineQueryFilter\QueryFilterManagerInterface;
 use Laminas\ServiceManager\AbstractPluginManager;
 use Psr\Container\ContainerExceptionInterface;
 
-/**
- * @author  Alex Patterson <alex.patterson.webdev@gmail.com>
- * @package Arp\LaminasDoctrineQueryFilter
- */
 class FilterManager extends AbstractPluginManager implements FilterFactoryInterface
 {
     /**

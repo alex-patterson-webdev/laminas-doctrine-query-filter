@@ -12,9 +12,6 @@ use Psr\Container\ContainerInterface;
 
 /**
  * @covers  \Arp\LaminasDoctrineQueryFilter\Filter\FilterManager
- *
- * @author  Alex Patterson <alex.patterson.webdev@gmail.com>
- * @package ArpTest\LaminasDoctrine\Query\Filter
  */
 final class FilterManagerTest extends TestCase
 {
@@ -23,9 +20,6 @@ final class FilterManagerTest extends TestCase
      */
     private $container;
 
-    /**
-     * Prepare the test case dependencies
-     */
     public function setUp(): void
     {
         $this->container = $this->createMock(ContainerInterface::class);

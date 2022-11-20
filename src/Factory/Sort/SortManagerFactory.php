@@ -9,10 +9,6 @@ use Arp\LaminasFactory\AbstractFactory;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 
-/**
- * @author  Alex Patterson <alex.patterson.webdev@gmail.com>
- * @package Arp\LaminasDoctrineQueryFilter\Factory\Sort
- */
 final class SortManagerFactory extends AbstractFactory
 {
     /**

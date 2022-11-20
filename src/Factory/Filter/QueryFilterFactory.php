@@ -13,10 +13,6 @@ use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 
-/**
- * @author  Alex Patterson <alex.patterson.webdev@gmail.com>
- * @package Arp\LaminasDoctrineQueryFilter\Factory\Filter
- */
 final class QueryFilterFactory extends AbstractFactory
 {
     /**

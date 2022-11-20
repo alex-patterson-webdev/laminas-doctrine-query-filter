@@ -8,10 +8,6 @@ use Arp\DoctrineQueryFilter\Sort\SortInterface;
 use Arp\LaminasFactory\AbstractFactory;
 use Psr\Container\ContainerInterface;
 
-/**
- * @author  Alex Patterson <alex.patterson.webdev@gmail.com>
- * @package Arp\LaminasDoctrineQueryFilter\Factory\Sort
- */
 final class SortFactory extends AbstractFactory
 {
     /**

@@ -10,10 +10,6 @@ use Arp\DoctrineQueryFilter\Sort\SortInterface;
 use Laminas\ServiceManager\AbstractPluginManager;
 use Psr\Container\ContainerExceptionInterface;
 
-/**
- * @author  Alex Patterson <alex.patterson.webdev@gmail.com>
- * @package Arp\LaminasDoctrineQueryFilter\Sort
- */
 final class SortManager extends AbstractPluginManager implements SortFactoryInterface
 {
     /**
