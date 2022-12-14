@@ -22,7 +22,8 @@ use Arp\DoctrineQueryFilter\Filter\IsNotNull;
 use Arp\DoctrineQueryFilter\Filter\IsNull;
 use Arp\DoctrineQueryFilter\Filter\LeftJoin;
 use Arp\DoctrineQueryFilter\Filter\OrX;
-use Arp\DoctrineQueryFilter\Filter\Typecaster;
+use Arp\DoctrineQueryFilter\Metadata\Typecaster;
+use Arp\DoctrineQueryFilter\Metadata\UniqidParamNameGenerator;
 use Arp\DoctrineQueryFilter\QueryFilterManager;
 use Arp\DoctrineQueryFilter\Sort\Field;
 use Arp\LaminasDoctrineQueryFilter\Factory\Filter\FilterManagerFactory;
@@ -45,16 +46,17 @@ return [
     ],
 
     'service_manager' => [
-        'aliases' => [
+        'aliases'   => [
             'QueryFilterManager' => QueryFilterManager::class,
             'FilterFactory'      => FilterManager::class,
             'SortFactory'        => SortManager::class,
         ],
         'factories' => [
-            QueryFilterManager::class => QueryFilterManagerFactory::class,
-            FilterManager::class      => FilterManagerFactory::class,
-            SortManager::class        => SortManagerFactory::class,
-            Typecaster::class         => InvokableFactory::class,
+            QueryFilterManager::class       => QueryFilterManagerFactory::class,
+            FilterManager::class            => FilterManagerFactory::class,
+            SortManager::class              => SortManagerFactory::class,
+            Typecaster::class               => InvokableFactory::class,
+            UniqidParamNameGenerator::class => InvokableFactory::class,
         ],
     ],
 
